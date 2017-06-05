@@ -4,12 +4,18 @@
 
 #include <sys/ipc.h>
 #include <sys/shm.h>
-#include <sem182.h>
 #include <errno.h>
+#include <stdio.h>
 
-int get_key(int key_passphrase, int key_nr);
+#include <sem182.h>
+
+#include <unistd.h>
+#include <sys/types.h>
+
+ 
+int my_key(int key_passphrase, int key_nr);
 int create_shm(int uid);
-void clean_all(int shm_id, int sem1_id, int sem2_id);
-int create_sem(int uid, is_sender);
+int clean_all(int shm_id, int sem1_id, int sem2_id);
+int create_sem(int uid, int is_sender);
 
 #endif
