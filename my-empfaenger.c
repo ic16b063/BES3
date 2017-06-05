@@ -22,7 +22,7 @@
   #include <stdio.h>
   #include <sys/types.h>
   #include <getopt.h>
- // #include <sys/wait.h>
+ 
   #include <string.h>
   #include <stdlib.h>
   #include <limits.h>
@@ -53,16 +53,17 @@
  
 int main (int argc, char * const argv[])
 {
-	// Einlesen der Parameter mittels getopt
+	// allgemeine Steuervariablen
 	
-	int opt;
-	char *endptr;
-	int puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
-	int testmodus = 0;
-	int only_clean = 0;
-	
+	int testmodus = 0; // zeigt an ob wir uns im Testmodus befinden
+	int only_clean = 0; // zeigt an ob nur aufgräumt werden soll
 
-	opt=0;
+
+	// Einlesen der Parameter mittels getopt	
+	int opt = 0; // speichert den Charakter der Option (nur ein Zeichen möglich)
+	char *endptr; // zeigt beim strtol auf den Rest des Strings
+	int puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
+	
 	// mit Schleife alle Parameter durchgehen bis m gefunden wurde
 	while ((opt = getopt(argc, argv, "m:tc")) != -1)
 	{
@@ -77,6 +78,7 @@ int main (int argc, char * const argv[])
 					//printf("Convertfehler bei strotol, Nr: %d, Text: %s\n", errno, strerror(errno));
 					error_at_line(0, errno,__FILE__,__LINE__,"Error at Range: %s", strerror(errno));
 					//printf("Rangefehler bei strotol\n");
+					clean_all_auto();
 					return -1; //exit(EXIT_FAILURE);
 				}
 				break;
@@ -92,17 +94,16 @@ int main (int argc, char * const argv[])
 				if (opt == '?') fprintf(stderr, "%s : Unknown option \"?\" encountered!\n", argv[0]); //strerror(errno));
 				fprintf(stderr, "Usage: %s [-h] -m <ring buffer size> \n", argv[0]); //strerror(errno));
 				//error_at_line(0, errno,__FILE__,__LINE__,"%s", strerror(errno));
+				clean_all_auto();
 				return -1;
 				//exit(EXIT_FAILURE);
 		}
-
-			
-			
 	}
 		
 	//printf("Puffergröße soll %d sein.\n",puffer);
 	
 	//printf("Funktionstest %s\n", argv[0]);
+
 	
 	
 	
@@ -115,9 +116,9 @@ int main (int argc, char * const argv[])
 		// erstelle shared memmory
 		my_shm = create_shm(puffer);
 		// erstelle Semaphore 0 (Sender)
-		my_sem0 = create_sem0(puffer);
+		my_sem0 = create_sem0(0);
 		// erstelle Semaphore 1 (Empfänger)
-		my_sem1 = create_sem1(0);
+		my_sem1 = create_sem1(puffer);
 		
 		// int my_uid = getuid();
 		// printf("UID: %d, Shared Memory ID: %d\n", my_uid, my_shm);
@@ -128,38 +129,46 @@ int main (int argc, char * const argv[])
 	
 	
 		/*Beginne ab hier mit dem eigentlichen Programm*/
-		int *shmptr = shmat(my_shm,NULL,0);
+		int *shmptr = shmat(my_shm,NULL,SHM_RDONLY);
 		if (shmptr == (int*) -1)
 		{
-			printf("Attach war nicht erfolgreich.");		
+			printf("Attach war nicht erfolgreich.");
+			clean_all_auto();
+			return -1;
 		}
 		
-		// printf("Versuche Semaphoren Werte auszugeben:\n");
+		 // printf("Versuche Semaphoren Werte auszugeben:\n");
 		
-		// printf("Semaphore 0: %d\n", semctl(my_sem0,0,GETVAL));
-		// printf("Semaphore 1: %d\n", semctl(my_sem1,0,GETVAL));
-		
+		 // printf("Semaphore lesen 0, id: %d, value:%d\n", my_sem0, semctl(my_sem0,0,GETVAL));
+		 // printf("Semaphore schreiben 1, id: %d, value:%d\n", my_sem1, semctl(my_sem1,0,GETVAL));
+
 		//Na dann Versuch ich auf den Speicher zuzugreifen:
 		int index = 0;
-			// puffer = max
 		//printf("Ausgabeversuch: %c\n", *(shmptr + index++));
-		while (P(my_sem0) != -1)
+		do
 		{
-			//printf("Ausgabeversuch: %c\n", *(shmptr + index++));
-			printf("%c", *(shmptr + index++));
+			//printf("1");
+			if (P(my_sem0) != 0)
+			{
+				/* syscall von einem Signal unterbrochen, wird weiter versucht */
+				if (errno == EINTR)	continue;
+				error_at_line(0, errno,__FILE__,__LINE__,"%s", strerror(errno));
+				break;
+			}
+			printf("%c", *(shmptr + index));
+
+			index ++;
 			V(my_sem1);
 			if (index >= puffer) index =0;
-		}
+		}while (*(shmptr + index) != EOF);
+			// Ende erreicht!
+			//if (*(shmptr + index) == EOF)	break;
 		
-		
+	/* Ende des Programms, ressourcen werden aufgeräumt */
 		if (shmdt(shmptr) == -1)
 		{
 			printf("Detach war nicht erfolgreich.");
 		}
-	
-	
-
-	/* Ende des Programms, ressourcen werden aufgeräumt */
 
 	} // ende if only_clean
 	

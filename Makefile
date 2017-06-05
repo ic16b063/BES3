@@ -37,7 +37,8 @@ GREP=grep
 
 ##OBJECTS=mypopen.c mypopen.h mytest.c
 ##OBJECTS=mypopen.c mypopen.h 
-OBJECTS=my-empfaenger.c grp_0-shared.c grp_0-shared.h 
+OBJECTS_EMPF=my-empfaenger.c grp_0-shared.c grp_0-shared.h 
+OBJECTS_SEND=my-sender.c grp_0-shared.c grp_0-shared.h 
 
 EXCLUDE_PATTERN=footrulewidth
 
@@ -53,10 +54,14 @@ EXCLUDE_PATTERN=footrulewidth
 ##
 
 
-all: my-empfaenger
+all: my-sender my-empfaenger
 
-my-empfaenger: $(OBJECTS)
+my-sender: $(OBJECTS_SEND)
 		$(CC) -o $@ $^ $(CFLAGS)
+
+my-empfaenger: $(OBJECTS_EMPF)
+		$(CC) -o $@ $^ $(CFLAGS)
+
 
 #popentest: popentest
 #		$(CC) $(CFLAGS) -o mypopen.o -lpopentest

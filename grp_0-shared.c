@@ -10,7 +10,7 @@ static int my_key(int key_nr);
 void set_key_base(int Key_Base)
 {
 	//printf("key_base wird gesetzt: %d\n", Key_Base);
-	//Setzen des Standardkeys wird nur beim ersten Aufruf durchgeführ
+	//Setzen des Standardkeys wird nur beim ersten Aufruf durchgeführt
 	if (key_base==0)
 	{
 		if (Key_Base == 0)
@@ -49,6 +49,8 @@ int create_shm_ext(int key, int mem_size)
 	int shm_key = my_key(2);
 	errno = 0;
 
+	//printf("short before create sh, key: %d\n",shm_key);
+	
 	int shm_id = shmget(shm_key, (sizeof(int)*mem_size), 0777 | IPC_CREAT | IPC_EXCL);	
 	if (shm_id == -1 )
 	{
@@ -64,7 +66,7 @@ int create_shm_ext(int key, int mem_size)
 				else printf("Fehler beim Zugriff auf shared memory\n");
 				return -1;
 			}
-			// printf("Shared Memory existiert bereits.\n");
+			//printf("Shared Memory existiert bereits. ID: %d\n", shm_id);
 			return shm_id;
 		}
 		printf("Fehler beim Erstellen des shared memory.\n");		
@@ -87,7 +89,6 @@ int create_sem1(int start_value)
 int create_sem_ext(int key, int key_nr, int start_value)
 {
 	//Key für Semaphore mit ID 0 und ID 1 um mit Vergleichsprogrammen kompatibel zu sein
-	// Zuordnung für Lesen / Schreibend noch unklar
 	if (key ==0 && key_base != 0) key = key_base;
 	else set_key_base(key);
 	
@@ -95,7 +96,7 @@ int create_sem_ext(int key, int key_nr, int start_value)
 	int sem_key = my_key(key_nr);	
 	errno = 0;
 	
-	int semid = seminit(sem_key, 0660, start_value);
+	int semid = seminit(sem_key, 0666, start_value);
 	if (semid == -1)
 	{
 		semid = semgrab(sem_key);
@@ -113,33 +114,20 @@ int create_sem_ext(int key, int key_nr, int start_value)
 int clean_all_auto()
 {
 	int sucess=0;
-	
 	// löschen shared memory
 	sucess = sucess + clean_shm_key(my_key(2));
-	
-	// int shm_key = my_key(key_base,2);
-	// shm_id = shmget(shm_key, sizeof(int), 0666 | IPC_EXCL);
-	
-	// int sem0_key = my_key(0);
-	// int sem0_id = semgrab(sem0_key);
-	
+	// löschen semaphore
 	sucess = sucess + clean_sem_key(my_key(0));
-	
-	// int sem1_key = my_key(1);
-	// int sem1_id = semgrab(sem1_key);
-	
-	sucess = sucess + clean_sem_key(my_key(1));
-	
+	sucess = sucess + clean_sem_key(my_key(1));	
 	return sucess;
 }
-
 
 int clean_sem_id(int id)
 {
 	// löschen semaphoren
 	if (semrm(id) == -1 && id != -1)
 	{
-		printf("Fehler beim Löschen der Semaphore ID= %d . Bitte manuell mit <IPCS> überprüfen und mit <IPCRM> löschen.\n", id);
+		//printf("Fehler beim Löschen der Semaphore ID= %d . Bitte manuell mit <IPCS> überprüfen und mit <IPCRM> löschen.\n", id);
 		return -1;
 	}
 	return 0;
@@ -147,15 +135,15 @@ int clean_sem_id(int id)
 
 int clean_sem_key(int key)
 {
-	int sem_id = semgrab(key);
-	return clean_sem_id(sem_id);
+	//int sem_id = semgrab(key);
+	return clean_sem_id(semgrab(key));
 }
 
 int clean_shm_key(int key)
 {
 	// löschen shared memory
-	int shm_id = shmget(key, sizeof(int), 0666 | IPC_EXCL);
-	return clean_shm_id(shm_id);
+	//int shm_id = shmget(key, sizeof(int), 0666 | IPC_EXCL);
+	return clean_shm_id(shmget(key, sizeof(int), 0666 | IPC_EXCL));
 	
 }
 
@@ -164,7 +152,7 @@ int clean_shm_id(int id)
 	// löschen shared memory
 	if (shmctl(id, IPC_RMID, NULL) == -1 && id != -1)
 	{
-		printf("Fehler beim Löschen des shared memory ID= %d . Bitte manuell <IPCS> überprüfen und mit <IPCRM> löschen.\n", id);
+		//printf("Fehler beim Löschen des shared memory ID= %d . Bitte manuell <IPCS> überprüfen und mit <IPCRM> löschen.\n", id);
 		return -1;
 	}
 	return 0;
@@ -175,29 +163,14 @@ int clean_all_ext(int shm_id, int sem0_id, int sem1_id)
 {
 	int sucess = 0;
 	// löschen shared memory
-	if (shm_id==0)
-	{
-		sucess += clean_shm_key(my_key(2));
-		// int shm_key = my_key(key_base,2);
-		// shm_id = shmget(shm_key, sizeof(int), 0660 | IPC_EXCL);
-	}
+	if (shm_id==0) sucess += clean_shm_key(my_key(2));
 	else sucess += clean_shm_id(shm_id);
 
 	// löschen semaphoren
-	if (sem0_id==0)
-	{
-		sucess =+ clean_sem_key(my_key(0));
-		// int sem0_key = my_key(key_base,0);
-		// sem0_id = semgrab(sem1_key);
-	}
+	if (sem0_id==0) sucess =+ clean_sem_key(my_key(0));
 	else sucess =+ clean_sem_id(sem0_id);
 	
-	if (sem1_id==0)
-	{
-		sucess =+ clean_sem_key(my_key(1));
-		// int sem0_key = my_key(key_base,0);
-		// sem0_id = semgrab(sem1_key);
-	}
+	if (sem1_id==0)	sucess =+ clean_sem_key(my_key(1));
 	else sucess =+ clean_sem_id(sem1_id);
 		
 	return sucess;

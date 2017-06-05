@@ -1,0 +1,207 @@
+./test_sender_empfaenger.sh: Using sender binary my-sender
+./test_sender_empfaenger.sh: Using empfaenger binary my-empfaenger
+./test_sender_empfaenger.sh: Using a delay time of 15 seconds for the tests 16 and 17
+./test_sender_empfaenger.sh: Continuing after failed tests. Please note that we stop nevertheless if ressources are left
+   over as the following test won't work most likely anyways
+./test_sender_empfaenger.sh: Placing temporary files in /home/ic15b011/.tmp
+./test_sender_empfaenger.sh: Using coloring auto
+./test_sender_empfaenger.sh: ----- Test 0: Test command line parameters - unknown options ----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with unknown options (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with unknown options (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 1: Test command line parameters - no options -----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender without options (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger without options (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 2: Test command line parameters - additional parameters -----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with additional parameters (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with additional parameters (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with additonal parameters (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1) for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with additional parameters (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1) for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 3: Test command line parameters - negative ring buffer size ----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with a negative ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with a negative ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with a negative ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with a negative ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 4: Test command line parameters - zero as ring buffer size ----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with zero as ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with zero as ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with zero as ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with zero as ring buffer size (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 5: Test command line parameters - invalid number ----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with an invalid number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with an invalid number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with an invalid number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with an invalid number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 6: Test command line parameters - huge number (violating the range of long long) ----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with a huge number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with a huge number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 7: Test command line parameters - large number (exceeding maximum value of size_t) ----
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-sender with a large number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: Test failed: No usage message printed to stderr when calling my-empfaenger with a large number (see /home/ic15b011/.tmp/stderr.tOR3yPL3e1 for output on stderr)
+./test_sender_empfaenger.sh: ----- Test 8: large number (but not exceeding maximum value of size_t) -----
+./test_sender_empfaenger.sh: Test successful: Exit code indicating failure but no usage message printed to stderr when calling my-sender with a large number not exceeding maximum value of size_t
+./test_sender_empfaenger.sh: Test successful: Exit code indicating failure but no usage message printed to stderr when calling my-empfaenger with a large number not exceeding maximum value of size_t
+./test_sender_empfaenger.sh: ----- Test 9: Simple transfer of small text file -----
+./test_sender_empfaenger.sh: line 643: my-empfaenger: command not found
+./test_sender_empfaenger.sh: line 641: my-sender: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16660 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16661 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16660 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16661 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_text_file.txt" and outputfile "/home/ic15b011/.tmp/small_text_file_result.txt.QJivtvs1sD" differ
+1d0
+< This is just a short testfile.
+check_files_equal() returned 1
+./test_sender_empfaenger.sh: ----- Test 10: Transfer of small text file - big buffer -----
+./test_sender_empfaenger.sh: line 683: my-sender: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16694 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16694 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: line 694: my-empfaenger: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16698 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16698 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_text_file.txt" and outputfile "/home/ic15b011/.tmp/small_text_file_result.txt.QJivtvs1sD" differ
+1d0
+< This is just a short testfile.
+./test_sender_empfaenger.sh: ----- Test 11: Simple transfer of small text file - -m10 -----
+./test_sender_empfaenger.sh: line 726: my-empfaenger: command not found
+./test_sender_empfaenger.sh: line 724: my-sender: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16729 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16730 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16729 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16730 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_text_file.txt" and outputfile "/home/ic15b011/.tmp/small_text_file_result.txt.QJivtvs1sD" differ
+1d0
+< This is just a short testfile.
+./test_sender_empfaenger.sh: ----- Test 12: Simple transfer of small text file - -m   10 -----
+./test_sender_empfaenger.sh: line 766: my-empfaenger: command not found
+./test_sender_empfaenger.sh: line 764: my-sender: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16763 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16764 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16763 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16764 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_text_file.txt" and outputfile "/home/ic15b011/.tmp/small_text_file_result.txt.QJivtvs1sD" differ
+1d0
+< This is just a short testfile.
+./test_sender_empfaenger.sh: ----- Test 13: Transfer of small text file - reverse start order -----
+./test_sender_empfaenger.sh: line 804: my-empfaenger: command not found
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16797 is no longer alive
+./test_sender_empfaenger.sh: line 814: my-sender: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16801 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16797 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16801 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16797 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_text_file.txt" and outputfile "/home/ic15b011/.tmp/small_text_file_result.txt.QJivtvs1sD" differ
+1d0
+< This is just a short testfile.
+./test_sender_empfaenger.sh: ----- Test 14: Transfer of small binary file containing char 255 -----
+./test_sender_empfaenger.sh: line 854: my-empfaenger: command not found
+./test_sender_empfaenger.sh: line 852: my-sender: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16834 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16835 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16834 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16835 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_binary_file.bin" and outputfile "/home/ic15b011/.tmp/small_binary_file_result.bin.AGOsyQFU8q" differ
+1,22d0
+< Dies ist ein Test
+< Mal sehen, wieviel Text da zum Empfaenger ruebergeht.
+< ÿ
+< Warum kommt denn das alles nicht mehr an?
+< Ob das evtl. mit dem Returntype von fgetc() zu tun hat? - Hmmm,
+< da sollte man mal die Manpage befragen und ein bissi gruebeln.
+< 
+< Wenn ein char alle moeglichen Werte eines Zeichens fassen koennen soll,
+< wie hat fgetc() dann die Moeglichkeit im Returnwert einen Fehler oder
+< end-of-file zu signalisieren?
+< Evtl. braucht's dann genau einen Wert mehr als alle moeglichen Werte eines
+< chars.
+< Koennte das der Grund sein, warum fgetc() als Returntype int hat?
+< Welchen Typ hat eigentlich EOF?
+< Welchen Wert hat eigentlich EOF?
+< Welchen Wert bekommt man, wenn man EOF auf char castet?
+< Welchen Wert hat eigentlich das komische Zeichen auf Zeile 2 (wenn wir mit 0
+< zu zaehlen beginnen) in diesem File?
+< 
+< Und, ist der Groschen (oder der Cent) gefallen? - War's ein typisch
+< oesterreichisches "Aha-Erlebnis"?
+< 
+./test_sender_empfaenger.sh: ----- Test 15: Test proper handling of EINTR -----
+./test_sender_empfaenger.sh: line 892: my-sender: command not found
+./test_sender_empfaenger.sh: line 895: kill: (16868) - No such process
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16868 terminated
+./test_sender_empfaenger.sh: line 898: kill: (16868) - No such process
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16868 terminated
+./test_sender_empfaenger.sh: line 901: kill: (16868) - No such process
+./test_sender_empfaenger.sh: line 902: my-empfaenger: command not found
+./test_sender_empfaenger.sh: line 905: kill: (16876) - No such process
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16876 terminated
+./test_sender_empfaenger.sh: line 908: kill: (16876) - No such process
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16876 terminated
+./test_sender_empfaenger.sh: line 911: kill: (16868) - No such process
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16868 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16876 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16868 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16876 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/small_binary_file.bin" and outputfile "/home/ic15b011/.tmp/small_binary_file_result.bin.AGOsyQFU8q" differ
+1,22d0
+< Dies ist ein Test
+< Mal sehen, wieviel Text da zum Empfaenger ruebergeht.
+< ÿ
+< Warum kommt denn das alles nicht mehr an?
+< Ob das evtl. mit dem Returntype von fgetc() zu tun hat? - Hmmm,
+< da sollte man mal die Manpage befragen und ein bissi gruebeln.
+< 
+< Wenn ein char alle moeglichen Werte eines Zeichens fassen koennen soll,
+< wie hat fgetc() dann die Moeglichkeit im Returnwert einen Fehler oder
+< end-of-file zu signalisieren?
+< Evtl. braucht's dann genau einen Wert mehr als alle moeglichen Werte eines
+< chars.
+< Koennte das der Grund sein, warum fgetc() als Returntype int hat?
+< Welchen Typ hat eigentlich EOF?
+< Welchen Wert hat eigentlich EOF?
+< Welchen Wert bekommt man, wenn man EOF auf char castet?
+< Welchen Wert hat eigentlich das komische Zeichen auf Zeile 2 (wenn wir mit 0
+< zu zaehlen beginnen) in diesem File?
+< 
+< Und, ist der Groschen (oder der Cent) gefallen? - War's ein typisch
+< oesterreichisches "Aha-Erlebnis"?
+< 
+./test_sender_empfaenger.sh: ----- Test 16: Transfer of huge binary file -----
+./test_sender_empfaenger.sh: line 950: my-sender: command not found
+./test_sender_empfaenger.sh: line 948: my-empfaenger: command not found
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16917 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16916 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16917 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16916 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/huge_binary_file.bin" and outputfile "/home/ic15b011/.tmp/huge_binary_file_result.bin.JkdOVSSuSI" differ
+Binary files /usr/local/etc/huge_binary_file.bin and /home/ic15b011/.tmp/huge_binary_file_result.bin.JkdOVSSuSI differ
+./test_sender_empfaenger.sh: ----- Test 17: Transfer of huge binary file - stop and continue processes in between -----
+./test_sender_empfaenger.sh: line 993: my-empfaenger: command not found
+./test_sender_empfaenger.sh: line 1002: kill: (16950) - No such process
+./test_sender_empfaenger.sh: line 996: my-sender: command not found
+./test_sender_empfaenger.sh: line 1004: kill: (16950) - No such process
+./test_sender_empfaenger.sh: line 1005: kill: (16951) - No such process
+./test_sender_empfaenger.sh: line 1007: kill: (16951) - No such process
+./test_sender_empfaenger.sh: Test successful: Process my-sender with PID 16951 terminated correctly
+./test_sender_empfaenger.sh: Test successful: Process my-empfaenger with PID 16950 terminated correctly
+./test_sender_empfaenger.sh: Test failed: Process my-sender with PID 16951 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test failed: Process my-empfaenger with PID 16950 terminated with exit status 127 instead of 0
+./test_sender_empfaenger.sh: Test successful: Shared memory segments have been cleaned up properly
+./test_sender_empfaenger.sh: Test successful: Semaphores have been cleaned up properly
+./test_sender_empfaenger.sh: Test failed: Inputfile "/usr/local/etc/huge_binary_file.bin" and outputfile "/home/ic15b011/.tmp/huge_binary_file_result.bin.JkdOVSSuSI" differ
+Binary files /usr/local/etc/huge_binary_file.bin and /home/ic15b011/.tmp/huge_binary_file_result.bin.JkdOVSSuSI differ
+./test_sender_empfaenger.sh: THERE IS SOMETHING TO IMPROVE! :-(
