@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+void print_usage(char * fullpath);
 
 void set_key_base(int Key_Base);
 

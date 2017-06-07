@@ -63,24 +63,49 @@ int main (int argc, char * const argv[])
 	int opt = 0; // speichert den Charakter der Option (nur ein Zeichen möglich)
 	char *endptr; // zeigt beim strtol auf den Rest des Strings
 	int puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
+	//printf("argc:%d\n",argc);
+	
+	if (argc == 1)
+	{
+		fprintf(stderr, "%s : ringbuffersize must be spezified\n", argv[0]);
+		fprintf(stderr, "Usage: %s [-h] -m <ring buffer size> \n", argv[0]);
+		return -1;
+	}
+
 	
 	// mit Schleife alle Parameter durchgehen bis m gefunden wurde
-	while ((opt = getopt(argc, argv, "m:tc")) != -1)
+	while ((opt = getopt(argc, argv, "m:tc:")) != -1)
 	{
+		
+		//printf("opt:%c, optarg:%s\n",opt, optarg);
+		if (optind != argc){
+			//fprintf(stderr, "%s : ringbuffersize must be spezified\n", argv[0]);
+			fprintf(stderr, "Usage: %s [-h] -m <ring buffer size> \n", argv[0]);
+			return -1;
+		}
+		
 		switch (opt)
 		{
 			case 'm':
 				errno = 0;
 				puffer = strtol(optarg, &endptr, 10);
-				if((errno == ERANGE && (puffer == LONG_MAX || puffer == LONG_MIN)) || (errno != 0 && puffer == 0))
+				//printf("longmax:%ld",LONG_MAX); 9223372036854775806    1073741823
+				if((errno == ERANGE && (puffer == LONG_MAX  || puffer == LONG_MIN)) || (errno != 0 && puffer == 0) || (errno ==0 && puffer <= 0))
 				{
-					//fprintf(stderr,"%s: %s\n", glob_var, strerror(errno));
-					//printf("Convertfehler bei strotol, Nr: %d, Text: %s\n", errno, strerror(errno));
-					error_at_line(0, errno,__FILE__,__LINE__,"Error at Range: %s", strerror(errno));
-					//printf("Rangefehler bei strotol\n");
+					print_usage(argv[0]);
 					clean_all_auto();
 					return -1; //exit(EXIT_FAILURE);
 				}
+				if (*endptr>9)
+				{
+					fprintf(stderr, "Cannot parse %s\n", optarg);
+					print_usage(argv[0]);
+					clean_all_auto();
+					return -1;
+				}
+				
+				
+				
 				break;
 			case 't':
 				if (only_clean == 0) testmodus = 1;

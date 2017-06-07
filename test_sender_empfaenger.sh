@@ -22,7 +22,8 @@ set -e		# terminate if command fails
 
 readonly PROGNAME="$0"
 
-MYTMPDIR="${TMPDIR:-/tmp}"
+#MYTMPDIR="${TMPDIR:-/tmp}"
+MYTMPDIR="./tmp"
 STDERRFILENAME=`mktemp ${MYTMPDIR}/stderr.XXXXXXXXXX`
 
 SENDER=./sender

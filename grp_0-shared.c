@@ -7,6 +7,11 @@ static int key_base = 0;
 // old: static int my_key(int key_passphrase, int key_nr); 
 static int my_key(int key_nr); 
 
+
+void print_usage(char * fullpath){
+	 		fprintf(stderr, "Usage: %s [-h] -m <ring buffer size> \n", fullpath);
+ }
+
 void set_key_base(int Key_Base)
 {
 	//printf("key_base wird gesetzt: %d\n", Key_Base);
