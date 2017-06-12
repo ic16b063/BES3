@@ -27,6 +27,7 @@
   #include <stdio.h>
   #include <sys/types.h>
   #include <getopt.h>
+  #include <stdint.h>
  
   #include <string.h>
   #include <stdlib.h>
@@ -66,12 +67,12 @@
  int main(int argc, char * const * argv)
  {
     
-	int ringpuffer_index = 0;
+	uint ringpuffer_index = 0;
 	
 	// Einlesen der Parameter mittels getopt	
 	int opt = 0; // speichert den Charakter der Option (nur ein Zeichen möglich)
 	char *endptr; // zeigt beim strtol auf den Rest des Strings
-	int puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
+	uint puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
 	if (argc == 1)
 	{
 		fprintf(stderr, "%s : ringbuffersize must be spezified\n", argv[0]); //strerror(errno));
@@ -93,9 +94,12 @@
 		{
 			case 'm':
 				errno = 0;
-				puffer = strtol(optarg, &endptr, 10);
+				puffer = (uint) strtol(optarg, &endptr, 10);
+				//printf("SIZEMAX: %u, /4 : %u",SIZE_MAX, SIZE_MAX/4);
+				//printf("ERRNO: %d, ERANGE: %d, SIZEMAX/4: %u, puffer: %u\n",errno, ERANGE, SIZE_MAX/4, puffer);
+				
 				//if((errno == ERANGE) || (errno != 0 && puffer == 0) || (errno == 0 && puffer <= 0))
-				if((errno == ERANGE && (puffer == LONG_MAX  || puffer == LONG_MIN)) || (errno != 0 && puffer == 0) || (errno ==0 && puffer <= 0))
+				if(errno == ERANGE || puffer > (SIZE_MAX/4) || (errno != 0 && puffer == 0) || (errno == 0 && puffer <= 0))
 				{
 					print_usage(argv[0]);
 					clean_all_auto();
@@ -166,6 +170,14 @@
 		clean_all_ext(shared_mem_id, sem_schreiben_id, sem_lesen_id);
 		return -1; //(EXIT_FAILURE);
 	}
+	
+	
+	printf("Versuche Semaphoren Werte auszugeben:\n");
+		
+	printf("Semaphore lesen 0, id: %d, value:%d\n", sem_lesen_id, semctl(sem_lesen_id,0,GETVAL));
+	printf("Semaphore schreiben 1, id: %d, value:%d\n", sem_schreiben_id, semctl(sem_schreiben_id,0,GETVAL));
+
+	
     /* Daten von STDIN lesen und in den Ringpuffer speichern */
 	do
     {
@@ -178,6 +190,8 @@
             return (EXIT_FAILURE);
         }
 		
+
+		printf("Semaphore schreiben 1, id: %d, value:%d\n", sem_schreiben_id, semctl(sem_schreiben_id,0,GETVAL));
         if (P(sem_schreiben_id) != 0) 
 		{
 			/* syscall von einem Signal unterbrochen, wird weiter versucht */
@@ -186,9 +200,10 @@
 			break;
 		}
 
-        /* Hier werden Daten in den Puffer reingeschrieben */
+		/* Hier werden Daten in den Puffer reingeschrieben */
 		//shm_ptr[ringpuffer_index] = eingabe;
 		*(shm_ptr + ringpuffer_index) = eingabe;
+
 		
 		if (V(sem_lesen_id) != 0) 
 		{

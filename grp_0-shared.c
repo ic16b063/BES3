@@ -166,6 +166,7 @@ int clean_shm_id(int id)
 
 int clean_all_ext(int shm_id, int sem0_id, int sem1_id)
 {
+	printf("Clean all aufgerufen\n");
 	int sucess = 0;
 	// löschen shared memory
 	if (shm_id==0) sucess += clean_shm_key(my_key(2));

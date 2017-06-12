@@ -54,12 +54,12 @@ EXCLUDE_PATTERN=footrulewidth
 ##
 
 
-all: my-sender my-empfaenger
+all: sender empfaenger
 
-my-sender: $(OBJECTS_SEND)
+sender: $(OBJECTS_SEND)
 		$(CC) -o $@ $^ $(CFLAGS)
 
-my-empfaenger: $(OBJECTS_EMPF)
+empfaenger: $(OBJECTS_EMPF)
 		$(CC) -o $@ $^ $(CFLAGS)
 
 

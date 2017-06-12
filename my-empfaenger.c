@@ -26,6 +26,8 @@
   #include <string.h>
   #include <stdlib.h>
   #include <limits.h>
+
+  #include <stdint.h>
   
   #include <error.h>
   #include <errno.h>
@@ -62,7 +64,7 @@ int main (int argc, char * const argv[])
 	// Einlesen der Parameter mittels getopt	
 	int opt = 0; // speichert den Charakter der Option (nur ein Zeichen möglich)
 	char *endptr; // zeigt beim strtol auf den Rest des Strings
-	int puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
+	uint puffer = 0; // Größe (Anzahl an Feldern) des Ringpuffers
 	//printf("argc:%d\n",argc);
 	
 	if (argc == 1)
@@ -88,9 +90,9 @@ int main (int argc, char * const argv[])
 		{
 			case 'm':
 				errno = 0;
-				puffer = strtol(optarg, &endptr, 10);
+				puffer = (uint) strtol(optarg, &endptr, 10);
 				//printf("longmax:%ld",LONG_MAX); 9223372036854775806    1073741823
-				if((errno == ERANGE && (puffer == LONG_MAX  || puffer == LONG_MIN)) || (errno != 0 && puffer == 0) || (errno ==0 && puffer <= 0))
+				if(errno == ERANGE || puffer > (SIZE_MAX/4) || (errno != 0 && puffer == 0) || (errno == 0 && puffer <= 0))
 				{
 					print_usage(argv[0]);
 					clean_all_auto();
@@ -162,17 +164,18 @@ int main (int argc, char * const argv[])
 			return -1;
 		}
 		
-		 // printf("Versuche Semaphoren Werte auszugeben:\n");
+		 printf("Versuche Semaphoren Werte auszugeben:\n");
 		
-		 // printf("Semaphore lesen 0, id: %d, value:%d\n", my_sem0, semctl(my_sem0,0,GETVAL));
-		 // printf("Semaphore schreiben 1, id: %d, value:%d\n", my_sem1, semctl(my_sem1,0,GETVAL));
+		 printf("Semaphore lesen 0, id: %d, value:%d\n", my_sem0, semctl(my_sem0,0,GETVAL));
+		 printf("Semaphore schreiben 1, id: %d, value:%d\n", my_sem1, semctl(my_sem1,0,GETVAL));
 
 		//Na dann Versuch ich auf den Speicher zuzugreifen:
-		int index = 0;
+		uint index = 0;
 		//printf("Ausgabeversuch: %c\n", *(shmptr + index++));
 		do
 		{
 			//printf("1");
+			printf("Semaphore lesen 0, id: %d, value:%d\n", my_sem0, semctl(my_sem0,0,GETVAL));
 			if (P(my_sem0) != 0)
 			{
 				/* syscall von einem Signal unterbrochen, wird weiter versucht */
