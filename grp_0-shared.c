@@ -56,11 +56,11 @@ int create_shm_ext(int key, int mem_size)
 
 	//printf("short before create sh, key: %d\n",shm_key);
 	
-	int shm_id = shmget(shm_key, (sizeof(int)*mem_size), 0777 | IPC_CREAT | IPC_EXCL);	
+	int shm_id = shmget(shm_key, (sizeof(int)*mem_size), 0700 | IPC_CREAT | IPC_EXCL);	
 	if (shm_id == -1 )
 	{
 		if (errno == EEXIST){
-			shm_id = shmget(shm_key, sizeof(int)*mem_size, 0777 | IPC_EXCL);
+			shm_id = shmget(shm_key, sizeof(int)*mem_size, 0700 | IPC_EXCL);
 			if (shm_id == -1 )
 			{
 				if (errno == EACCES)
@@ -101,7 +101,7 @@ int create_sem_ext(int key, int key_nr, int start_value)
 	int sem_key = my_key(key_nr);	
 	errno = 0;
 	
-	int semid = seminit(sem_key, 0666, start_value);
+	int semid = seminit(sem_key, 0600, start_value);
 	if (semid == -1)
 	{
 		semid = semgrab(sem_key);
@@ -148,7 +148,7 @@ int clean_shm_key(int key)
 {
 	// löschen shared memory
 	//int shm_id = shmget(key, sizeof(int), 0666 | IPC_EXCL);
-	return clean_shm_id(shmget(key, sizeof(int), 0666 | IPC_EXCL));
+	return clean_shm_id(shmget(key, sizeof(int), 0600 | IPC_EXCL));
 	
 }
 

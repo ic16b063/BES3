@@ -23,7 +23,7 @@
 ## ----------------------------------------------------------
 CC=gcc52
 CFLAGS= -lsem182 -DDEBUG -Wall -pedantic -Werror -Wextra -Wstrict-prototypes -fno-common -g -O3 -std=gnu11 
-
+CFLAGScleaner= -lsem182 
 
 CP=cp
 CD=cd
@@ -45,4 +45,4 @@ empfaenger: $(OBJECTS_EMPF)
 		$(CC) -o $@ $^ $(CFLAGS)
 
 cleaner: $(OBJECTS_CLEANER)
-		$(CC) -o $@ $^ $(CFLAGS)
+		$(CC) -o $@ $^ $(CFLAGScleaner)
