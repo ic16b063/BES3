@@ -3,13 +3,13 @@
 ## Betriebssysteme my-empfaenger Makefile
 ## Beispiel 3
 ##
-## @author 
+## @author Steinmetz, Posch, Stanescu
 ## @author 
 ## @date 2005/02/22
 ##
 ## @version $Revision: 1689 $
 ##
-##	@versuch 1 Anpassung an myfind von Steinmetz, Posch, Stanescu
+##	
 ##
 ##
 ## @todo
